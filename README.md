@@ -15,7 +15,7 @@ crypto ikev2 proposal IKEv2-prop1
  integrity sha256
  group 14
 ```
-On Windows 10, this information can be modified via PowerShell. 
+On Windows 10, default profile only support DH group 2, this information can be modified via PowerShell. 
 ```
 Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
   -CipherTransformConstants AES256 \
