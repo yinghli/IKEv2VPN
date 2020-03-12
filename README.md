@@ -14,6 +14,9 @@ crypto ikev2 proposal IKEv2-prop1
  encryption aes-cbc-256
  integrity sha256
  group 14
+
+crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac 
+ mode tunnel
 ```
 On Windows 10, default profile only support DH group 2, this information can be modified via PowerShell. 
 ```
