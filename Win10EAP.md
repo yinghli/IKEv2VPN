@@ -24,7 +24,7 @@ CSR1000v Certification enrollment
 
 1. Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
 
-2. Define a PKI Trustpoint
+2. Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
 ```
 crypto pki trustpoint msca
  enrollment mode ra
