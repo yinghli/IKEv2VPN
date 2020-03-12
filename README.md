@@ -18,7 +18,7 @@ crypto ikev2 proposal IKEv2-prop1
 crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac 
  mode tunnel
 ```
-On Windows 10, default profile only support DH group 2, this information can be modified via PowerShell. 
+On Windows 10, default profile only support DH group 2, please follow [this](https://docs.microsoft.com/en-us/powershell/module/vpnclient/set-vpnconnectionipsecconfiguration?view=win10-ps) to modify via PowerShell. 
 ```
 Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
   -CipherTransformConstants AES256 \
