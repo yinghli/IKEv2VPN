@@ -25,8 +25,17 @@ Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
   -PfsGroup None \
   -AuthenticationTransformConstants None
 ```
+![](https://github.com/yinghli/IKEv2VPN/blob/master/IKEv2AUTH.jpg)
 
-+ IKE_AUTH
++ IKE_AUTH: initiator and the responder will reveal their identify. Then each device must authenticate their peer. Three methods of authentication are used in IKEv2: signature, pre-shared key, and EAP. <br>
+On CSR1000v, this information is defined by `crypto ikev2 profile` command. Here is an example of pre-share key authentication.
+```
+crypto ikev2 profile AnyConnect-EAP
+ match identity remote email router@cisco.com
+ identity local fqdn ikev2.cisco.com
+ authentication remote pre-share key cisco123
+ authentication local pre-share key cisco123
+ ```
 
 iOS device native IKEv2 with pre-share key
 -----
