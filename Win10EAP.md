@@ -1,4 +1,4 @@
-Windows 10 native IKEv2 with EAP authentication
+Windows 10 native IKEv2 with Certificate and EAP authentication
 ======
 
 This blog is to describe how to setup windows 10 as client to connect IKEv2 VPN. 
@@ -47,4 +47,4 @@ CSR1000v IKEv2 setup and AAA setup
 
 Windows 10 client setup
 ------
-
+Follow this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
