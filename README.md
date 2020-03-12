@@ -36,6 +36,8 @@ crypto ikev2 profile AnyConnect-EAP
  authentication remote pre-share key cisco123
  authentication local pre-share key cisco123
  ```
+Windows 10 don't support pre-share key authenticatioin, here is iOS device IKEv2 VPN profile example. 
+![](https://github.com/yinghli/IKEv2VPN/blob/master/iOS.jpg)
 
 iOS device native IKEv2 with pre-share key
 -----
