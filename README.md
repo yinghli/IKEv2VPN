@@ -18,7 +18,8 @@ crypto ikev2 proposal IKEv2-prop1
 crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac 
  mode tunnel
 ```
-On Windows 10, default profile only support DH group 2, please follow [this](https://docs.microsoft.com/en-us/powershell/module/vpnclient/set-vpnconnectionipsecconfiguration?view=win10-ps) to modify via PowerShell. 
+On Windows 10, default profile may not work, please follow [this](https://docs.microsoft.com/en-us/powershell/module/vpnclient/set-vpnconnectionipsecconfiguration?view=win10-ps) to modify via PowerShell. <br>
+Below is an example that match CSR1000v IKEv2 and IPSec setup.
 ```
 Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
   -CipherTransformConstants AES256 \
@@ -39,7 +40,9 @@ crypto ikev2 profile AnyConnect-EAP
  authentication remote pre-share key cisco123
  authentication local pre-share key cisco123
  ```
-Windows 10 don't support pre-share key authenticatioin, here is iOS device IKEv2 VPN profile example. 
+> Windows 10 don't support pre-share key authenticatioin.
+Below is iOS device IKEv2 VPN profile example. 
+
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/iOS.jpg)
 
 iOS device native IKEv2 with pre-share key
