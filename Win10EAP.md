@@ -19,10 +19,28 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/regedit.jpg)
 
-
-
 CSR1000v Certification enrollment
 ------
+
+1. Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
+
+2. Define a PKI Trustpoint
+```
+crypto pki trustpoint msca
+ enrollment mode ra
+ enrollment url http://10.1.1.5:80/certsrv/mscep/mscep.dll
+ serial-number none
+ fqdn ikev2.yinghli.cn
+ subject-name OU=IT,O=yinghli
+ revocation-check none
+ rsakeypair ikev2rsa
+```
+3. Download the CA’s root certificate. `crypto pki authenticate msca`
+
+4. Enroll the certificate. `crypto pki enroll msca`
+
+5. Verify the certificate. `show crypto pki certificates verbose msca`
+
 
 CSR1000v IKEv2 setup and AAA setup
 ------
