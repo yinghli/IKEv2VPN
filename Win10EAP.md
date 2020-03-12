@@ -44,6 +44,63 @@ crypto pki trustpoint msca
 
 CSR1000v IKEv2 setup and AAA setup
 ------
+1. Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
+```
+crypto ikev2 proposal IKEv2-prop1
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy IKEv2-pol
+ proposal IKEv2-prop1
+```
+
+2. Setup IKEv2 authorization policy. 
+```
+aaa new-model
+!
+aaa authorization network local-group-author-list local
+!
+ip local pool YHLPOOL 10.6.1.10 10.6.1.200
+crypto ikev2 authorization policy ikev2-auth-policy
+ pool YHLPOOL
+ dns 8.8.8.8
+```
+
+3. Setup IKEv2 profile.
+```
+crypto pki certificate map win10 10
+ issuer-name co yinghli
+!
+crypto ikev2 profile Win10
+ match certificate win10
+ identity local fqdn ikev2.yinghli.cn
+ authentication remote rsa-sig
+ authentication local rsa-sig
+ pki trustpoint msca
+ aaa authorization group cert list local-group-author-list ikev2-auth-policy
+ virtual-template 400
+```
+
+4. Setup IPSec profile.
+```
+crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac
+ mode tunnel
+!
+crypto ipsec profile win10
+ set transform-set TS
+ set ikev2-profile Win10
+```
+
+5. Setup tunnel template and apply IPSec profile.
+```
+interface Virtual-Template400 type tunnel
+ ip unnumbered Loopback2
+ ip mtu 1400
+ tunnel mode ipsec ipv4
+ tunnel protection ipsec profile win10
+
+```
 
 Windows 10 client setup
 ------
