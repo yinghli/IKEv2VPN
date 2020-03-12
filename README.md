@@ -7,7 +7,7 @@ Baisc knowledge of IKEv2
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/IKEv2Basic.jpg)
 
 
-..* IKE_SA_INIT: initiator and the responder will exchange the cryptographic algorithms and Diffie-Hellman group (DH). <br>
++ IKE_SA_INIT: initiator and the responder will exchange the cryptographic algorithms and Diffie-Hellman group (DH). <br>
 On CSR1000v, this information is defined by `crypto ikev2 proposal` command. 
 ```
 crypto ikev2 proposal IKEv2-prop1 
@@ -26,7 +26,7 @@ Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
   -AuthenticationTransformConstants None
 ```
 
-..* IKE_AUTH
++ IKE_AUTH
 
 iOS device native IKEv2 with pre-share key
 -----
