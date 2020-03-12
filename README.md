@@ -23,7 +23,7 @@ Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
   -IntegrityCheckMethod SHA256 \
   -DHGroup Group14 \
   -PfsGroup None \
-  -AuthenticationTransformConstants None
+  -AuthenticationTransformConstants AES256128
 ```
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/IKEAUTH.jpg)
 
