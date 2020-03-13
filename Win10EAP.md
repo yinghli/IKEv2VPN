@@ -1,7 +1,6 @@
 # Windows 10 native IKEv2 with Certificate and EAP authentication
 
-This blog is to describe how to setup windows 10 as client to connect IKEv2 VPN. 
-Because windows 10 don't support pre-share key, we will use EAP and Certification to demo this. 
+This blog is to describe how to setup windows 10 connect to an IKEv2 VPN Server using EAP-TLS authentication. We are using Windows 2016 as Certificate Authority, Windows Network Policy Server as Radius server and Windows 10 native IKEv2 client.
 
 ## Setup Windows 2016 as CA server
 
