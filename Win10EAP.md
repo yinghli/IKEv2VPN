@@ -23,9 +23,9 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 CSR1000v Certification enrollment
 ------
 
-1. Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
++ Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
 
-2. Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
++ Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
 ```
 crypto pki trustpoint msca
  enrollment mode ra
@@ -36,11 +36,24 @@ crypto pki trustpoint msca
  revocation-check none
  rsakeypair ikev2rsa
 ```
-3. Download the CA’s root certificate. `crypto pki authenticate msca`
++ Download the CA’s root certificate. `crypto pki authenticate msca`
 
-4. Enroll the certificate. `crypto pki enroll msca`
++ Enroll the certificate. `crypto pki enroll msca`
 
-5. Verify the certificate. `show crypto pki certificates verbose msca`
++ Verify the certificate. `show crypto pki certificates verbose msca`
+
+
+Windows 10 client setup
+------
++ Client generate a certificate request.
+
+![](https://github.com/yinghli/IKEv2VPN/blob/master/CSR.jpg)
+
++ Client open browser and access https://sever ip addr/certsrv to enroll a new certificate.
+
+![](https://github.com/yinghli/IKEv2VPN/blob/master/Enroll.jpg)
+
+Follow this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
 
 
 CSR1000v IKEv2 setup and AAA setup
@@ -102,7 +115,3 @@ interface Virtual-Template400 type tunnel
  tunnel protection ipsec profile win10
 
 ```
-
-Windows 10 client setup
-------
-Follow this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
