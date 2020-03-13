@@ -5,10 +5,10 @@ Because windows 10 don't support pre-share key, we will use EAP and Certificatio
 
 ## Setup Windows 2016 as CA server
 
-1. Follow this [link](https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority) to setup Windows 2016 as Certificate Authority and with “Network Device Enrollment Service”.
+1. Follow this [link](https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority) to setup Windows 2016 as Certificate Authority and with "Network Device Enrollment Service(NDES)".
 
-2. Clone certificate template. Windows CA default certificate template is "IPSECIntemediateOffline". Based on this [link](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html), certificate must have the EKU fields set to 'Server Authentication' for Cisco IOS and 'Client Authentication' for the client. We clone a template that support both EKU. Name it as "RASandIASServer".<br>
-> please note that "user" should have permission to "enroll" the template.
+2. Clone certificate template. Windows CA default certificate template is "IPSECIntemediateOffline". Based on this [link](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html), certificate must have the EKU fields set to `Server Authentication` for Cisco IOS and `Client Authentication` for the client. We clone a template that support both EKU. Name it as "RASandIASServer".<br>
+> please note that NDES service account should have permission to "enroll" this template.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/CAtemplate.jpg)
 
@@ -40,7 +40,13 @@ crypto pki trustpoint msca
 
 4. Enroll the certificate. `crypto pki enroll msca`
 
-5. Verify the certificate. `show crypto pki certificates verbose msca`
+5. Verify the certificate. `show crypto pki certificates verbose msca`. Make sure this certificate have `Server Authentication` and `Client Authentication` EKU. 
+```
+    Authority Info Access:
+    Extended Key Usage:
+        Server Auth
+        Client Auth
+```
 
 ### CSR1000v IKEv2 setup and AAA setup
 
