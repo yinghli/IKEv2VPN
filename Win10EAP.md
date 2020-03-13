@@ -20,12 +20,13 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/regedit.jpg)
 
-CSR1000v Certification enrollment
+CSR1000v Certification enrollment and IKEv2 configuration
 ------
++ Certification enrollment.
 
-+ Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
+1.Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
 
-+ Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
+2.Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
 ```
 crypto pki trustpoint msca
  enrollment mode ra
@@ -36,12 +37,78 @@ crypto pki trustpoint msca
  revocation-check none
  rsakeypair ikev2rsa
 ```
-+ Download the CA’s root certificate. `crypto pki authenticate msca`
+3.Download the CA’s root certificate. `crypto pki authenticate msca`
 
-+ Enroll the certificate. `crypto pki enroll msca`
+4.Enroll the certificate. `crypto pki enroll msca`
 
-+ Verify the certificate. `show crypto pki certificates verbose msca`
+5.Verify the certificate. `show crypto pki certificates verbose msca`
 
++ CSR1000v IKEv2 setup and AAA setup
+
+1.Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
+```
+crypto ikev2 proposal IKEv2-prop1
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy IKEv2-pol
+ proposal IKEv2-prop1
+```
+2. Setup IKEv2 authorization policy. 
+```
+aaa new-model
+!
+aaa authorization network local-group-author-list local
+!
+ip local pool YHLPOOL 10.6.1.10 10.6.1.200
+crypto ikev2 authorization policy ikev2-auth-policy
+ pool YHLPOOL
+ dns 8.8.8.8
+```
+3. Setup AAA and Radius.
+```
+radius server windowsRadius
+ address ipv4 10.1.1.5 auth-port 1645 acct-port 1646
+ key 7 031352050200365F 
+!
+aaa group server radius FreeW
+ server name windowsRadius
+!
+aaa authentication login ikev2win group FreeW
+```
+3. Setup IKEv2 profile.
+```
+crypto pki certificate map win10 10
+ issuer-name co yinghli
+!
+crypto ikev2 profile Win10
+ match identity remote address 0.0.0.0 
+ authentication local rsa-sig
+ authentication remote eap query-identity
+ pki trustpoint msca
+ aaa authentication eap ikev2win
+ aaa authorization group eap list local-group-author-list ikev2-auth-policy
+ aaa authorization user eap cached
+ virtual-template 200
+```
+4. Setup IPSec profile.
+```
+crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac
+ mode tunnel
+!
+crypto ipsec profile win10
+ set transform-set TS
+ set ikev2-profile Win10
+```
+5. Setup tunnel template and apply IPSec profile.
+```
+interface Virtual-Template200 type tunnel
+ ip unnumbered Loopback2
+ ip mtu 1400
+ tunnel mode ipsec ipv4
+ tunnel protection ipsec profile win10
+```
 
 Windows 10 client setup
 ------
@@ -57,65 +124,12 @@ Windows 10 client setup
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/Enroll.jpg)
 
-Follow this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
+> Reference this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
 
++ Setup VPN profile and modify the certificate setup.
+1. Create VPN profile 
+![](https://github.com/yinghli/IKEv2VPN/blob/master/Client1.jpg)
 
-CSR1000v IKEv2 setup and AAA setup
-------
-1. Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
-```
-crypto ikev2 proposal IKEv2-prop1
- encryption aes-cbc-256
- integrity sha256
- group 14
-!
-crypto ikev2 policy IKEv2-pol
- proposal IKEv2-prop1
-```
+2. Setup EAP authentication
+![](https://github.com/yinghli/IKEv2VPN/blob/master/Client2.jpg)
 
-2. Setup IKEv2 authorization policy. 
-```
-aaa new-model
-!
-aaa authorization network local-group-author-list local
-!
-ip local pool YHLPOOL 10.6.1.10 10.6.1.200
-crypto ikev2 authorization policy ikev2-auth-policy
- pool YHLPOOL
- dns 8.8.8.8
-```
-
-3. Setup IKEv2 profile.
-```
-crypto pki certificate map win10 10
- issuer-name co yinghli
-!
-crypto ikev2 profile Win10
- match certificate win10
- identity local fqdn ikev2.yinghli.cn
- authentication remote rsa-sig
- authentication local rsa-sig
- pki trustpoint msca
- aaa authorization group cert list local-group-author-list ikev2-auth-policy
- virtual-template 400
-```
-
-4. Setup IPSec profile.
-```
-crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac
- mode tunnel
-!
-crypto ipsec profile win10
- set transform-set TS
- set ikev2-profile Win10
-```
-
-5. Setup tunnel template and apply IPSec profile.
-```
-interface Virtual-Template400 type tunnel
- ip unnumbered Loopback2
- ip mtu 1400
- tunnel mode ipsec ipv4
- tunnel protection ipsec profile win10
-
-```
