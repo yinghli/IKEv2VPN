@@ -45,11 +45,15 @@ crypto pki trustpoint msca
 
 Windows 10 client setup
 ------
-+ Client generate a certificate request.
++ Client generate a certificate request, follow the setup and save as file.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/CSR.jpg)
 
-+ Client open browser and access https://sever ip addr/certsrv to enroll a new certificate.
++ Client open browser and access https://sever_ip_addr/certsrv and login with your credential. 
+1. Downlad CA certificate and install in your local "Trusted Root Certification Authorities".
+2. Click request a certificate and select advance. 
+3. Open previous step file via Notepad and copy into the website, choose "User" template and submit certificate request. 
+4. Download the certificate and install into "Current User/Personal Certificates".
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/Enroll.jpg)
 
