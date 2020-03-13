@@ -23,9 +23,9 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 
 ### CSR1000v Certification enrollment.
 
-1.Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
+1. Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
 
-2.Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
+2. Define a PKI Trustpoint. In my case, 10.1.1.5 is CA server setup in previous step. VPN server FQDN is ikev2.yinghli.cn.
 ```
 crypto pki trustpoint msca
  enrollment mode ra
@@ -36,15 +36,15 @@ crypto pki trustpoint msca
  revocation-check none
  rsakeypair ikev2rsa
 ```
-3.Download the CA’s root certificate. `crypto pki authenticate msca`
+3. Download the CA’s root certificate. `crypto pki authenticate msca`
 
-4.Enroll the certificate. `crypto pki enroll msca`
+4. Enroll the certificate. `crypto pki enroll msca`
 
-5.Verify the certificate. `show crypto pki certificates verbose msca`
+5. Verify the certificate. `show crypto pki certificates verbose msca`
 
 ### CSR1000v IKEv2 setup and AAA setup
 
-1.Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
+1. Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
 ```
 crypto ikev2 proposal IKEv2-prop1
  encryption aes-cbc-256
@@ -76,11 +76,8 @@ aaa group server radius FreeW
 !
 aaa authentication login ikev2win group FreeW
 ```
-3. Setup IKEv2 profile.
+4. Setup IKEv2 profile.
 ```
-crypto pki certificate map win10 10
- issuer-name co yinghli
-!
 crypto ikev2 profile Win10
  match identity remote address 0.0.0.0 
  authentication local rsa-sig
@@ -91,7 +88,7 @@ crypto ikev2 profile Win10
  aaa authorization user eap cached
  virtual-template 200
 ```
-4. Setup IPSec profile.
+5. Setup IPSec profile.
 ```
 crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac
  mode tunnel
@@ -100,7 +97,7 @@ crypto ipsec profile win10
  set transform-set TS
  set ikev2-profile Win10
 ```
-5. Setup tunnel template and apply IPSec profile.
+6. Setup tunnel template and apply IPSec profile.
 ```
 interface Virtual-Template200 type tunnel
  ip unnumbered Loopback2
