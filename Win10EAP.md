@@ -1,11 +1,11 @@
-Windows 10 native IKEv2 with Certificate and EAP authentication
-======
+# Windows 10 native IKEv2 with Certificate and EAP authentication
+
 
 This blog is to describe how to setup windows 10 as client to connect IKEv2 VPN. 
 Because windows 10 don't support pre-share key, we will use EAP and Certification to demo this. 
 
-Setup Windows 2016 as CA server
------
+## Setup Windows 2016 as CA server
+
 + Follow this [link](https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority) to setup Windows 2016 as Certificate Authority and with “Network Device Enrollment Service”.
 
 + Clone certificate template. Windows CA default certificate template is "IPSECIntemediateOffline". Based on this [link](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html), certificate must have the EKU fields set to 'Server Authentication' for Cisco IOS and 'Client Authentication' for the client. We clone a template that support both EKU. Name it as "RASandIASServer".<br>
@@ -20,9 +20,9 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/regedit.jpg)
 
-CSR1000v Certification enrollment and IKEv2 configuration
-------
-+ Certification enrollment.
+## CSR1000v Certification enrollment and IKEv2 configuration
+
+### Certification enrollment.
 
 1.Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
 
@@ -43,7 +43,7 @@ crypto pki trustpoint msca
 
 5.Verify the certificate. `show crypto pki certificates verbose msca`
 
-+ CSR1000v IKEv2 setup and AAA setup
+### CSR1000v IKEv2 setup and AAA setup
 
 1.Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
 ```
@@ -110,13 +110,14 @@ interface Virtual-Template200 type tunnel
  tunnel protection ipsec profile win10
 ```
 
-Windows 10 client setup
-------
-+ Client generate a certificate request, follow the setup and save as file.
+## Windows 10 client setup
+
+### Client generate a certificate request, follow the setup and save as file.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/CSR.jpg)
 
-+ Client open browser and access https://sever_ip_addr/certsrv and login with your credential. 
+### Client open browser and access https://sever_ip_addr/certsrv and login with your credential. 
+
 1. Downlad CA certificate and install in your local "Trusted Root Certification Authorities".
 2. Click request a certificate and select advance. 
 3. Open previous step file via Notepad and copy into the website, choose "User" template and submit certificate request. 
@@ -126,7 +127,7 @@ Windows 10 client setup
 
 > Reference this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
 
-+ Setup VPN profile and modify the certificate setup.
+### Setup VPN profile and modify the certificate setup.
 1. Create VPN profile 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/Client1.jpg)
 
