@@ -55,8 +55,8 @@ Windows 10 native IKEv2 with Certification
 -----
 
 Reference Link:
-> [Cisco: IKEv2 with Windows 7 Certificate](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html)
-> [Cisco: IKEv2 with strongSwan EAP](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/116837-config-strongswan-ios-00.html)
++ [Cisco: IKEv2 with Windows 7 Certificate](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html) <br>
++ [Cisco: IKEv2 with strongSwan EAP](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/116837-config-strongswan-ios-00.html) <br>
 > [Cisco: AnyConnect IKEv2 with EAP-MD5](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115755-flexvpn-ike-eap-00.html)
 > [Cisco: VPN Radius Attribute](https://www.cisco.com/en/US/docs/ios-xml/ios/sec_conn_ike2vpn/configuration/15-2mt/sec-apx-flex-rad.html)
 > [Cisco: IOS SSLVPN](https://community.cisco.com/t5/security-documents/configure-sslvpn-on-cisco-cloud-services-router-1000v-csr1000v/ta-p/3156679)
