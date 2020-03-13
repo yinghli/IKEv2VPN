@@ -1,19 +1,18 @@
 # Windows 10 native IKEv2 with Certificate and EAP authentication
 
-
 This blog is to describe how to setup windows 10 as client to connect IKEv2 VPN. 
 Because windows 10 don't support pre-share key, we will use EAP and Certification to demo this. 
 
 ## Setup Windows 2016 as CA server
 
-+ Follow this [link](https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority) to setup Windows 2016 as Certificate Authority and with “Network Device Enrollment Service”.
+1. Follow this [link](https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority) to setup Windows 2016 as Certificate Authority and with “Network Device Enrollment Service”.
 
-+ Clone certificate template. Windows CA default certificate template is "IPSECIntemediateOffline". Based on this [link](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html), certificate must have the EKU fields set to 'Server Authentication' for Cisco IOS and 'Client Authentication' for the client. We clone a template that support both EKU. Name it as "RASandIASServer".<br>
+2. Clone certificate template. Windows CA default certificate template is "IPSECIntemediateOffline". Based on this [link](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html), certificate must have the EKU fields set to 'Server Authentication' for Cisco IOS and 'Client Authentication' for the client. We clone a template that support both EKU. Name it as "RASandIASServer".<br>
 > please note that "user" should have permission to "enroll" the template.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/CAtemplate.jpg)
 
-+ Change MSCEP default template and disable SCEP enrollment password.<br>
+3. Change MSCEP default template and disable SCEP enrollment password.<br>
 Open `Regedit`. <br>
 Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP`, change all default template name to previous setup we cloned. <br>
 Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\EnforcePassword`, change EnforcePassword REG_DWORD value to 0. <br>
@@ -22,7 +21,7 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 
 ## CSR1000v Certification enrollment and IKEv2 configuration
 
-### Certification enrollment.
+### CSR1000v Certification enrollment.
 
 1.Use this command to generate key pair. `crypto key generate rsa label ikev2rsa modulus 2048`
 
@@ -112,22 +111,24 @@ interface Virtual-Template200 type tunnel
 
 ## Windows 10 client setup
 
-### Client generate a certificate request, follow the setup and save as file.
+### Client get certificate
+
+1. Client generate a certificate request, follow the setup and save as file.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/CSR.jpg)
 
-### Client open browser and access https://sever_ip_addr/certsrv and login with your credential. 
-
-1. Downlad CA certificate and install in your local "Trusted Root Certification Authorities".
-2. Click request a certificate and select advance. 
-3. Open previous step file via Notepad and copy into the website, choose "User" template and submit certificate request. 
-4. Download the certificate and install into "Current User/Personal Certificates".
+2. Client open browser and access https://sever_ip_addr/certsrv and login with your credential. 
+3. Downlad CA certificate and install in your local `Trusted Root Certification Authorities`.
+4. Click request a certificate and select advance. 
+5. Open previous step file via Notepad and copy into the website, choose "User" template and submit certificate request. 
+6. Download the certificate and install into `Current User/Personal Certificates`.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/Enroll.jpg)
 
 > Reference this [link](https://www.altaro.com/hyper-v/request-ssl-windows-certificate-server/) to get client certificate. 
 
-### Setup VPN profile and modify the certificate setup.
+### Setup VPN connection
+
 1. Create VPN profile 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/Client1.jpg)
 
