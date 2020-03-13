@@ -55,11 +55,11 @@ Windows 10 native IKEv2 with Certification
 -----
 
 Reference Link:
-[Cisco: IKEv2 with Windows 7 Certificate] (https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html)
-[Cisco: IKEv2 with strongSwan EAP](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/116837-config-strongswan-ios-00.html)
-[Cisco: AnyConnect IKEv2 with EAP-MD5] (https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115755-flexvpn-ike-eap-00.html)
-[Cisco: VPN Radius Attribute] (https://www.cisco.com/en/US/docs/ios-xml/ios/sec_conn_ike2vpn/configuration/15-2mt/sec-apx-flex-rad.html)
-[Cisco: IOS SSLVPN] (https://community.cisco.com/t5/security-documents/configure-sslvpn-on-cisco-cloud-services-router-1000v-csr1000v/ta-p/3156679)
-[Cisco: WLC EAP-TLS](https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/213543-configure-eap-tls-flow-with-ise.html)
-[FreeRadius EAP-TLS](https://documentation.meraki.com/MR/Encryption_and_Authentication/Freeradius%3A_Configure_freeradius_to_work_with_EAP-TLS_authentication)
-[Cisco IOS Certificate Enrollment] (https://integratingit.wordpress.com/2017/08/26/cisco-ios-certificate-enrollment-via-scep/)
+> [Cisco: IKEv2 with Windows 7 Certificate](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html)
+> [Cisco: IKEv2 with strongSwan EAP](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/116837-config-strongswan-ios-00.html)
+> [Cisco: AnyConnect IKEv2 with EAP-MD5](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115755-flexvpn-ike-eap-00.html)
+> [Cisco: VPN Radius Attribute](https://www.cisco.com/en/US/docs/ios-xml/ios/sec_conn_ike2vpn/configuration/15-2mt/sec-apx-flex-rad.html)
+> [Cisco: IOS SSLVPN](https://community.cisco.com/t5/security-documents/configure-sslvpn-on-cisco-cloud-services-router-1000v-csr1000v/ta-p/3156679)
+> [Cisco: WLC EAP-TLS](https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/213543-configure-eap-tls-flow-with-ise.html)
+> [FreeRadius EAP-TLS](https://documentation.meraki.com/MR/Encryption_and_Authentication/Freeradius%3A_Configure_freeradius_to_work_with_EAP-TLS_authentication)
+> [Cisco IOS Certificate Enrollment](https://integratingit.wordpress.com/2017/08/26/cisco-ios-certificate-enrollment-via-scep/)
