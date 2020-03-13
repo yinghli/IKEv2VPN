@@ -18,6 +18,17 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/regedit.jpg)
 
+## Setup Windows 2016 NPS Radius service
+
+1. Setup Radius Client IP and shared secret.
+![](https://github.com/yinghli/IKEv2VPN/blob/master/NPS1.jpg)
+
+2. Setup netwokr policy and enable EAP-TLS.
+![](https://github.com/yinghli/IKEv2VPN/blob/master/NPS2.jpg)
+
+3. Setup Radius authorization attributs. `Framed-Pool` defined VPN client IP pool and `ipsec:dns-servers=8.8.8.8` define the DNS server.
+![](https://github.com/yinghli/IKEv2VPN/blob/master/NPS3.jpg)
+
 ## CSR1000v Certification enrollment and IKEv2 configuration
 
 ### CSR1000v Certification enrollment.
