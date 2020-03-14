@@ -2,6 +2,15 @@
 
 This blog is to describe how to setup windows 10 connect to an IKEv2 VPN Server using EAP-TLS authentication. We are using Windows 2016 as Certificate Authority, Windows Network Policy Server as Radius server and Windows 10 native IKEv2 client.
 
+- [Setup Windows 2016 as CA server](#setup-windows-2016-as-ca-server)
+- [Setup Windows 2016 NPS Radius service](#setup-windows-2016-nps-radius-service)
+- [CSR1000v Certification enrollment and IKEv2 configuration](#csr1000v-certification-enrollment-and-ikev2-configuration)
+  * [CSR1000v Certification enrollment.](#csr1000v-certification-enrollment)
+  * [CSR1000v IKEv2 setup and AAA setup](#csr1000v-ikev2-setup-and-aaa-setup)
+- [Windows 10 client setup](#windows-10-client-setup)
+  * [Client get certificate](#client-get-certificate)
+  * [Setup VPN connection](#setup-vpn-connection)
+
 ## Setup Windows 2016 as CA server
 
 1. Follow this [link](https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority) to setup Windows 2016 as Certificate Authority and with "Network Device Enrollment Service(NDES)".
