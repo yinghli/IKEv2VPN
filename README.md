@@ -1,13 +1,15 @@
-IKEv2 VPN
-=====
+# IKEv2 VPN
+
 Cisco Cloud Service Router as IKEv2 VPN server, Windows 2016 as Certification Authority and Network Policy Server, Windows 10 and iOS device as client. Test end to end IKEv2 VPN with pre-share key, EAP and Certification as authentication method. 
 
-Baisc knowledge of IKEv2
------
+## Baisc knowledge of IKEv2
+
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/IKEv2Basic.jpg)
 
 
-+ IKE_SA_INIT: initiator and the responder will exchange the cryptographic algorithms and Diffie-Hellman group (DH). <br>
+### IKE_SA_INIT
+
+Initiator and the responder will exchange the cryptographic algorithms and Diffie-Hellman group (DH). <br>
 On CSR1000v, this information is defined by `crypto ikev2 proposal` command. 
 ```
 crypto ikev2 proposal IKEv2-prop1 
@@ -31,7 +33,9 @@ Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
 ```
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/IKEAUTH.jpg)
 
-+ IKE_AUTH: initiator and the responder will reveal their identify. Then each device must authenticate their peer. Three methods of authentication are used in IKEv2: signature, pre-shared key, and EAP. <br>
+### IKE_AUTH
+
+Initiator and the responder will reveal their identify. Then each device must authenticate their peer. Three methods of authentication are used in IKEv2: signature, pre-shared key, and EAP. <br>
 On CSR1000v, this information is defined by `crypto ikev2 profile` command. Here is an example of pre-share key authentication.
 ```
 crypto ikev2 profile AnyConnect-EAP
@@ -45,14 +49,6 @@ Below is iOS device IKEv2 VPN profile example.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/iOS.jpg)
 
-iOS device native IKEv2 with pre-share key
------
-
-Windows 10 Anyconnect client with EAP 
------
-
-Windows 10 native IKEv2 with Certification
------
 
 Reference Link:
 + [Cisco: IKEv2 with Windows 7 Certificate](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html) <br>
