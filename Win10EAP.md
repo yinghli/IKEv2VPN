@@ -23,10 +23,10 @@ Browse to the path `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP\Enf
 1. Setup Radius Client IP and shared secret.
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/NPS1.jpg)
 
-2. Setup netwokr policy and enable EAP-TLS.
+2. Setup network policy and enable EAP-TLS.
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/NPS2.jpg)
 
-3. Setup Radius authorization attributs. `Framed-Pool` defined VPN client IP pool and `ipsec:dns-servers=8.8.8.8` define the DNS server.
+3. Setup Radius authorization attribuits. `Framed-Pool` defined VPN client IP pool and `ipsec:dns-servers=8.8.8.8` define the DNS server.
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/NPS3.jpg)
 
 ## CSR1000v Certification enrollment and IKEv2 configuration
@@ -60,7 +60,7 @@ crypto pki trustpoint msca
 
 ### CSR1000v IKEv2 setup and AAA setup
 
-1. Setup IKEv2 proposal and policy. Windows 10 should setup with powershell to meet same parameters.
+1. Setup IKEv2 proposal and policy. Windows 10 should setup with PowerShell to meet same parameters.
 ```
 crypto ikev2 proposal IKEv2-prop1
  encryption aes-cbc-256
@@ -131,7 +131,7 @@ interface Virtual-Template200 type tunnel
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/CSR.jpg)
 
 2. Client open browser and access https://sever_ip_addr/certsrv and login with your credential. 
-3. Downlad CA certificate and install in your local `Trusted Root Certification Authorities`.
+3. Download CA certificate and install in your local `Trusted Root Certification Authorities`.
 4. Click request a certificate and select advance. 
 5. Open previous step file via Notepad and copy into the website, choose "User" template and submit certificate request. 
 6. Download the certificate and install into `Current User/Personal Certificates`.
@@ -148,3 +148,13 @@ interface Virtual-Template200 type tunnel
 2. Setup EAP authentication
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/Client2.jpg)
 
+3. Change default IPSec profile to meet CSR1000v configuration.
+```
+Set-VpnConnectionIPsecConfiguration -ConnectionName "test" \
+  -CipherTransformConstants AES256 \
+  -EncryptionMethod AES256 \
+  -IntegrityCheckMethod SHA256 \
+  -DHGroup Group14 \
+  -PfsGroup None \
+  -AuthenticationTransformConstants AES256128
+```
