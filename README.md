@@ -49,6 +49,9 @@ Below is iOS device IKEv2 VPN profile example.
 
 ![](https://github.com/yinghli/IKEv2VPN/blob/master/iOS.jpg)
 
+## Windows 10 Native IKEv2 Setup
+
+[Example for Windows 10](https://github.com/yinghli/IKEv2VPN/blob/master/Win10EAP.md)
 
 Reference Link:
 + [Cisco: IKEv2 with Windows 7 Certificate](https://www.cisco.com/c/en/us/support/docs/security/flexvpn/115907-config-flexvpn-wcca-00.html) <br>
